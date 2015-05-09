@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     18676,        415]
-NotebookOptionsPosition[     18207,        394]
-NotebookOutlinePosition[     18584,        411]
-CellTagsIndexPosition[     18541,        408]
+NotebookDataLength[     24551,        530]
+NotebookOptionsPosition[     24081,        509]
+NotebookOutlinePosition[     24458,        526]
+CellTagsIndexPosition[     24415,        523]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,9 +25,21 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], "\n", 
    RowBox[{
-    RowBox[{"tmax", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{"tmax", "=", "400"}], ";"}], "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"l", "=", "30"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Qmin", "=", "1.3"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Qmax", "=", "1.4"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"numQPoints", "=", "200"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Qres", "=", 
+     RowBox[{"numQPoints", "/", 
+      RowBox[{"(", 
+       RowBox[{"Qmax", "-", "Qmin"}], ")"}]}]}], ";"}], "\[IndentingNewLine]",
+    "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"soln", "=", 
      RowBox[{"ParametricNDSolve", "[", 
@@ -103,77 +115,137 @@ Cell[BoxData[
                "Q", ",", "w", ",", "A", ",", "theta0", ",", "thetadot"}], 
                "]"}], "[", "t", "]"}], "]"}]}]}], "}"}], "/.", "soln"}], 
         "]"}]}], ";", "\[IndentingNewLine]", 
-      RowBox[{"GraphicsRow", "[", 
-       RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"DynamicModule", "[", 
+       RowBox[{
+        RowBox[{"{", "Q", "}"}], ",", 
         RowBox[{
-         RowBox[{"Graphics", "[", "\[IndentingNewLine]", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"PointSize", "[", "0.05", "]"}], ",", 
-             "\[IndentingNewLine]", 
-             RowBox[{"Point", "[", "massPos", "]"}], ",", 
-             RowBox[{"Line", "[", 
+         RowBox[{"period", "=", 
+          RowBox[{"2", "*", 
+           RowBox[{"Pi", "/", "w"}]}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"start", "=", 
+          RowBox[{"period", "*", "30"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"end", " ", "=", " ", "tmax"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"length", "=", 
+          RowBox[{"Length", "[", 
+           RowBox[{"Table", "[", 
+            RowBox[{"x", ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "start", ",", "end", ",", "period"}], "}"}]}],
+             "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"bifur", "=", 
+          RowBox[{"Flatten", "[", 
+           RowBox[{
+            RowBox[{"Table", "[", 
+             RowBox[{
+              RowBox[{"Transpose", "[", 
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"ConstantArray", "[", 
+                  RowBox[{"i", ",", "length"}], "]"}], ",", 
+                 RowBox[{"Flatten", "[", 
+                  RowBox[{"Table", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"theta", "[", 
+                    RowBox[{
+                    "i", ",", "w", ",", "A", ",", "theta0", ",", "thetadot"}],
+                     "]"}], "[", "x", "]"}], "/.", "soln"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"x", ",", "start", ",", "end", ",", "period"}], 
+                    "}"}]}], "]"}], "]"}]}], "}"}], "]"}], ",", 
+              "\[IndentingNewLine]", 
               RowBox[{"{", 
+               RowBox[{"i", ",", "Qmin", ",", "Qmax", ",", 
+                RowBox[{"1", "/", "Qres"}]}], "}"}]}], "]"}], ",", "1"}], 
+           "]"}]}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"GraphicsGrid", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Graphics", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"PointSize", "[", "0.05", "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Point", "[", "massPos", "]"}], ",", 
+               RowBox[{"Line", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}], ",", 
+                  RowBox[{"Flatten", "[", "massPos", "]"}]}], "}"}], "]"}]}], 
+              "}"}], "\[IndentingNewLine]", ",", 
+             RowBox[{"PlotRange", " ", "\[Rule]", " ", "50"}], ",", " ", 
+             RowBox[{"Axes", " ", "\[Rule]", " ", "True"}], ",", " ", 
+             RowBox[{
+             "PlotLabel", " ", "\[Rule]", " ", "\"\<mass rod pedulum\>\""}]}],
+             "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Show", "[", 
+            StyleBox["\[IndentingNewLine]",
+             FontSize->18], 
+            RowBox[{
+             RowBox[{"ParametricPlot", "[", 
+              RowBox[{
                RowBox[{
                 RowBox[{"{", 
-                 RowBox[{"0", ",", "0"}], "}"}], ",", 
-                RowBox[{"Flatten", "[", "massPos", "]"}]}], "}"}], "]"}]}], 
-            "}"}], "\[IndentingNewLine]", ",", 
-           RowBox[{"PlotRange", " ", "\[Rule]", " ", "50"}], ",", " ", 
-           RowBox[{"Axes", " ", "\[Rule]", " ", "True"}], ",", " ", 
-           RowBox[{
-           "PlotLabel", " ", "\[Rule]", " ", "\"\<mass rod pedulum\>\""}]}], 
-          "]"}], ",", "\[IndentingNewLine]", 
-         RowBox[{"Show", "[", 
-          StyleBox["\[IndentingNewLine]",
-           FontSize->18], 
-          RowBox[{
-           RowBox[{"ParametricPlot", "[", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"{", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"theta", "[", 
-                  RowBox[{
-                  "Q", ",", "w", ",", "A", ",", "theta0", ",", "thetadot"}], 
-                  "]"}], "[", "x", "]"}], ",", 
-                RowBox[{
                  RowBox[{
-                  RowBox[{"theta", "[", 
+                  RowBox[{
+                   RowBox[{"theta", "[", 
+                    RowBox[{
+                    "Q", ",", "w", ",", "A", ",", "theta0", ",", "thetadot"}],
+                     "]"}], "[", "x", "]"}], ",", 
+                  RowBox[{
                    RowBox[{
-                   "Q", ",", "w", ",", "A", ",", "theta0", ",", "thetadot"}], 
-                   "]"}], "'"}], "[", "x", "]"}]}], "}"}], "/.", "soln"}], 
-             ",", 
-             RowBox[{"{", 
-              RowBox[{"x", ",", "0", ",", "tmax"}], "}"}], ",", 
-             RowBox[{"AxesLabel", "\[Rule]", 
-              RowBox[{"{", 
+                    RowBox[{"theta", "[", 
+                    RowBox[{
+                    "Q", ",", "w", ",", "A", ",", "theta0", ",", "thetadot"}],
+                     "]"}], "'"}], "[", "x", "]"}]}], "}"}], "/.", "soln"}], 
+               ",", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", "0", ",", "tmax"}], "}"}], ",", 
+               RowBox[{"AxesLabel", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"\[Theta]", "[", "\"\<t\>\"", "]"}], ",", 
+                  RowBox[{
+                   RowBox[{"\[Theta]", "'"}], "[", "\"\<t\>\"", "]"}]}], 
+                 "}"}]}], ",", 
                RowBox[{
-                RowBox[{"\[Theta]", "[", "\"\<t\>\"", "]"}], ",", 
-                RowBox[{
-                 RowBox[{"\[Theta]", "'"}], "[", "\"\<t\>\"", "]"}]}], 
-               "}"}]}], ",", 
-             RowBox[{
-             "PlotLabel", " ", "\[Rule]", " ", 
-              "\"\<Trajectory through phase space\>\""}]}], 
-            RowBox[{"(*", 
-             RowBox[{",", 
-              RowBox[{"PlotRange", "\[Rule]", 
+               "PlotLabel", " ", "\[Rule]", " ", 
+                "\"\<Trajectory through phase space\>\""}]}], 
+              RowBox[{"(*", 
+               RowBox[{",", 
+                RowBox[{"PlotRange", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "9"}], ",", "9"}], "}"}], ",", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "3"}], ",", "3"}], "}"}]}], "}"}]}]}], 
+               "*)"}], "]"}], ",", 
+             RowBox[{"Graphics", "[", 
+              RowBox[{"{", 
+               RowBox[{"Point", "[", "pos", "]"}], "}"}], "]"}]}], "]"}]}], 
+          "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"ListPlot", "[", 
+           RowBox[{"bifur", ",", 
+            RowBox[{"Epilog", "\[Rule]", " ", 
+             RowBox[{"{", 
+              RowBox[{"Line", "[", 
                RowBox[{"{", 
                 RowBox[{
                  RowBox[{"{", 
-                  RowBox[{
-                   RowBox[{"-", "9"}], ",", "9"}], "}"}], ",", 
+                  RowBox[{"Q", ",", 
+                   RowBox[{"-", "4"}]}], "}"}], ",", 
                  RowBox[{"{", 
-                  RowBox[{
-                   RowBox[{"-", "3"}], ",", "3"}], "}"}]}], "}"}]}]}], "*)"}],
-             "]"}], ",", 
-           RowBox[{"Graphics", "[", 
-            RowBox[{"{", 
-             RowBox[{"Point", "[", "pos", "]"}], "}"}], "]"}]}], "]"}]}], 
-        "}"}], "]"}]}], ",", 
+                  RowBox[{"Q", ",", "0"}], "}"}]}], "}"}], "]"}], "}"}]}]}], 
+           "]"}], "}"}]}], "}"}], "]"}]}], ",", "\[IndentingNewLine]", 
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
@@ -186,7 +258,8 @@ Cell[BoxData[
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{"Q", ",", "2.4"}], "}"}], ",", "0.1", ",", "3"}], "}"}], ",", 
+        RowBox[{"Q", ",", "2.4"}], "}"}], ",", "0.1", ",", "2.5"}], "}"}], 
+     ",", 
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
@@ -267,13 +340,27 @@ Cell[BoxData[
    3.640177135431117*^9, 3.640177144603771*^9}, {3.6401772207223186`*^9, 
    3.6401772487502947`*^9}, {3.640177302703545*^9, 3.6401773390759363`*^9}, {
    3.640177383854*^9, 3.6401774027478447`*^9}, {3.640177438873475*^9, 
-   3.640177472221518*^9}}],
+   3.640177472221518*^9}, {3.6401785662832613`*^9, 3.640178577253942*^9}, {
+   3.640179647917637*^9, 3.6401796495810347`*^9}, {3.640179704366414*^9, 
+   3.640179818320344*^9}, {3.6401798612546043`*^9, 3.6401798916168423`*^9}, {
+   3.640179928567198*^9, 3.640179975443008*^9}, {3.6401800130795727`*^9, 
+   3.640180051664823*^9}, {3.640180110748774*^9, 3.640180181922583*^9}, {
+   3.640180313862803*^9, 3.640180314070269*^9}, {3.640180476413097*^9, 
+   3.6401804766328487`*^9}, {3.6401807239183817`*^9, 
+   3.6401807241171417`*^9}, {3.640180764983118*^9, 3.640180767399831*^9}, {
+   3.64018080725979*^9, 3.6401808216826344`*^9}, {3.64018200639762*^9, 
+   3.64018200651586*^9}, {3.640182124891684*^9, 3.640182124954442*^9}, {
+   3.640183177135721*^9, 3.64018317813719*^9}, {3.640183630209279*^9, 
+   3.6401836503007517`*^9}, {3.640183693743532*^9, 3.6401837576962557`*^9}, {
+   3.640183951962291*^9, 3.6401839748389*^9}, {3.640184012323852*^9, 
+   3.6401840715208187`*^9}, {3.640184143030575*^9, 3.6401841431208477`*^9}, 
+   3.640184184963457*^9, {3.6401843183588867`*^9, 3.640184319102412*^9}}],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
    DynamicModuleBox[{$CellContext`A$$ = 1.5, $CellContext`Q$$ = 
-    2.4, $CellContext`t$$ = 14.4, $CellContext`theta0$$ = 
+    2.4, $CellContext`t$$ = 0, $CellContext`theta0$$ = 
     0, $CellContext`thetadot$$ = 0, $CellContext`w$$ = Rational[2, 3], 
     Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
@@ -281,27 +368,27 @@ Cell[BoxData[
        Hold[$CellContext`w$$], 
        Rational[2, 3]}, 0, 2}, {{
        Hold[$CellContext`A$$], 1.5}, 0, 1.5}, {{
-       Hold[$CellContext`Q$$], 2.4}, 0.1, 3}, {{
+       Hold[$CellContext`Q$$], 2.4}, 0.1, 2.5}, {{
        Hold[$CellContext`theta0$$], 0}, -3, 3}, {
       Hold[$CellContext`thetadot$$], 0, 3}, {
-      Hold[$CellContext`t$$], 0, 200, 0.1}}, Typeset`size$$ = {
-    450., {75., 83.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`w$35682$$ = 
-    0, $CellContext`A$35683$$ = 0, $CellContext`Q$35684$$ = 
-    0, $CellContext`theta0$35685$$ = 0, $CellContext`thetadot$35686$$ = 
-    0, $CellContext`t$35687$$ = 0}, 
+      Hold[$CellContext`t$$], 0, 400, 0.1}}, Typeset`size$$ = {
+    450., {142., 149.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`w$216701$$ = 
+    0, $CellContext`A$216702$$ = 0, $CellContext`Q$216703$$ = 
+    0, $CellContext`theta0$216704$$ = 0, $CellContext`thetadot$216705$$ = 
+    0, $CellContext`t$216706$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, 
       "Variables" :> {$CellContext`A$$ = 1.5, $CellContext`Q$$ = 
         2.4, $CellContext`t$$ = 0, $CellContext`theta0$$ = 
         0, $CellContext`thetadot$$ = 0, $CellContext`w$$ = Rational[2, 3]}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`w$$, $CellContext`w$35682$$, 0], 
-        Hold[$CellContext`A$$, $CellContext`A$35683$$, 0], 
-        Hold[$CellContext`Q$$, $CellContext`Q$35684$$, 0], 
-        Hold[$CellContext`theta0$$, $CellContext`theta0$35685$$, 0], 
-        Hold[$CellContext`thetadot$$, $CellContext`thetadot$35686$$, 0], 
-        Hold[$CellContext`t$$, $CellContext`t$35687$$, 0]}, 
+        Hold[$CellContext`w$$, $CellContext`w$216701$$, 0], 
+        Hold[$CellContext`A$$, $CellContext`A$216702$$, 0], 
+        Hold[$CellContext`Q$$, $CellContext`Q$216703$$, 0], 
+        Hold[$CellContext`theta0$$, $CellContext`theta0$216704$$, 0], 
+        Hold[$CellContext`thetadot$$, $CellContext`thetadot$216705$$, 0], 
+        Hold[$CellContext`t$$, $CellContext`t$216706$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -323,36 +410,56 @@ $CellContext`thetadot$$][$CellContext`t$$]], (-$CellContext`l) Cos[
               $CellContext`theta[$CellContext`Q$$, $CellContext`w$$, \
 $CellContext`A$$, $CellContext`theta0$$, \
 $CellContext`thetadot$$][$CellContext`t$$]]}, $CellContext`soln]]; 
-       GraphicsRow[{
-          Graphics[{
-            PointSize[0.05], 
-            Point[$CellContext`massPos], 
-            Line[{{0, 0}, 
-              Flatten[$CellContext`massPos]}]}, PlotRange -> 50, Axes -> True,
-            PlotLabel -> "mass rod pedulum"], 
-          Show[
-           ParametricPlot[
-            ReplaceAll[{
-              $CellContext`theta[$CellContext`Q$$, $CellContext`w$$, \
+       DynamicModule[{$CellContext`Q$$}, $CellContext`period = 
+          2 (Pi/$CellContext`w$$); $CellContext`start = $CellContext`period 
+           30; $CellContext`end = $CellContext`tmax; $CellContext`length = 
+          Length[
+            
+            Table[$CellContext`x, {$CellContext`x, $CellContext`start, \
+$CellContext`end, $CellContext`period}]]; $CellContext`bifur = Flatten[
+            Table[
+             Transpose[{
+               ConstantArray[$CellContext`i, $CellContext`length], 
+               Flatten[
+                Table[
+                 ReplaceAll[
+                  $CellContext`theta[$CellContext`i, $CellContext`w$$, \
+$CellContext`A$$, $CellContext`theta0$$, \
+$CellContext`thetadot$$][$CellContext`x], $CellContext`soln], \
+{$CellContext`x, $CellContext`start, $CellContext`end, \
+$CellContext`period}]]}], {$CellContext`i, $CellContext`Qmin, \
+$CellContext`Qmax, 1/$CellContext`Qres}], 1]]; GraphicsGrid[{{
+           Graphics[{
+             PointSize[0.05], 
+             Point[$CellContext`massPos], 
+             Line[{{0, 0}, 
+               Flatten[$CellContext`massPos]}]}, PlotRange -> 50, Axes -> 
+            True, PlotLabel -> "mass rod pedulum"], 
+           Show[
+            ParametricPlot[
+             ReplaceAll[{
+               $CellContext`theta[$CellContext`Q$$, $CellContext`w$$, \
 $CellContext`A$$, $CellContext`theta0$$, \
 $CellContext`thetadot$$][$CellContext`x], 
-              Derivative[1][
-               $CellContext`theta[$CellContext`Q$$, $CellContext`w$$, \
+               Derivative[1][
+                $CellContext`theta[$CellContext`Q$$, $CellContext`w$$, \
 $CellContext`A$$, $CellContext`theta0$$, \
 $CellContext`thetadot$$]][$CellContext`x]}, $CellContext`soln], \
 {$CellContext`x, 0, $CellContext`tmax}, AxesLabel -> {
-              $CellContext`\[Theta]["t"], 
-              Derivative[1][$CellContext`\[Theta]]["t"]}, PlotLabel -> 
-            "Trajectory through phase space"], 
-           Graphics[{
-             Point[$CellContext`pos]}]]}]), 
+               $CellContext`\[Theta]["t"], 
+               Derivative[1][$CellContext`\[Theta]]["t"]}, PlotLabel -> 
+             "Trajectory through phase space"], 
+            Graphics[{
+              Point[$CellContext`pos]}]]}, {
+           ListPlot[$CellContext`bifur, Epilog -> {
+              Line[{{$CellContext`Q$$, -4}, {$CellContext`Q$$, 0}}]}]}}]), 
       "Specifications" :> {{{$CellContext`w$$, 
           Rational[2, 3]}, 0, 2}, {{$CellContext`A$$, 1.5}, 0, 
          1.5}, {{$CellContext`Q$$, 2.4}, 0.1, 
-         3}, {{$CellContext`theta0$$, 0}, -3, 3}, {$CellContext`thetadot$$, 0,
-          3}, {$CellContext`t$$, 0, 200, 0.1}}, "Options" :> {}, 
+         2.5}, {{$CellContext`theta0$$, 0}, -3, 3}, {$CellContext`thetadot$$, 
+         0, 3}, {$CellContext`t$$, 0, 400, 0.1}}, "Options" :> {}, 
       "DefaultOptions" :> {}],
-     ImageSizeCache->{505., {217., 224.}},
+     ImageSizeCache->{505., {284., 291.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -375,7 +482,15 @@ $CellContext`thetadot$$]][$CellContext`x]}, $CellContext`soln], \
    3.64017693886613*^9, 3.640177030273355*^9}, {3.64017713872369*^9, 
    3.640177145551803*^9}, {3.640177222371791*^9, 3.6401772496355047`*^9}, 
    3.640177339786498*^9, 3.640177404528878*^9, {3.640177458224084*^9, 
-   3.640177474292379*^9}}]
+   3.640177474292379*^9}, {3.640178568932602*^9, 3.640178578272154*^9}, 
+   3.640179562578993*^9, 3.640179709235752*^9, {3.640180028853559*^9, 
+   3.64018005527914*^9}, {3.640180139525444*^9, 3.640180184052298*^9}, 
+   3.6401803276264973`*^9, 3.6401804812401457`*^9, 3.640180594896385*^9, 
+   3.640180727542255*^9, 3.640180769536571*^9, {3.6401808104992123`*^9, 
+   3.640180822754211*^9}, 3.640182010919348*^9, 3.640182132173099*^9, 
+   3.640183183809312*^9, 3.640183653402444*^9, {3.640183733194693*^9, 
+   3.640183761676714*^9}, 3.640184074937521*^9, 3.640184145647777*^9, 
+   3.640184190890635*^9, 3.640184328037822*^9, 3.640184393702691*^9}]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
@@ -411,12 +526,12 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 11745, 247, 708, "Input"],
-Cell[12328, 271, 5464, 106, 461, "Output"]
+Cell[580, 22, 15917, 334, 1023, "Input"],
+Cell[16500, 358, 7166, 134, 595, "Output"]
 }, Open  ]],
-Cell[17807, 380, 145, 2, 35, "Input"],
-Cell[17955, 384, 153, 5, 61, "Text"],
-Cell[18111, 391, 92, 1, 35, "Input"]
+Cell[23681, 495, 145, 2, 35, "Input"],
+Cell[23829, 499, 153, 5, 61, "Text"],
+Cell[23985, 506, 92, 1, 35, "Input"]
 }
 ]
 *)
