@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     41542,        827]
-NotebookOptionsPosition[     41038,        805]
-NotebookOutlinePosition[     41415,        822]
-CellTagsIndexPosition[     41372,        819]
+NotebookDataLength[     42459,        840]
+NotebookOptionsPosition[     41955,        818]
+NotebookOutlinePosition[     42332,        835]
+CellTagsIndexPosition[     42289,        832]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -304,9 +304,7 @@ Cell[BoxData[
           StyleBox["\[IndentingNewLine]",
            FontSize->18], 
           RowBox[{
-           StyleBox[
-            StyleBox[
-             RowBox[{"(", "*"}]],
+           StyleBox["(*",
             FontSize->18], 
            RowBox[{"ParametricPlot", "[", 
             RowBox[{
@@ -433,7 +431,9 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"thetadot", ",", " ", "0", ",", "3"}], "}"}], ",", 
    RowBox[{"{", 
-    RowBox[{"t", ",", "0", ",", "tmax", ",", "0.1"}], "}"}], ",", 
+    RowBox[{"t", ",", "0", ",", "tmax", ",", "0.1", ",", 
+     RowBox[{"AnimationRate", "\[Rule]", "1"}], ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Open\>\""}]}], "}"}], ",", 
    RowBox[{"Button", "[", 
     RowBox[{"\"\<Reset\>\"", ",", 
      RowBox[{"{", 
@@ -452,6 +452,7 @@ Cell[BoxData[
      RowBox[{"{", 
       RowBox[{"redraw", " ", "=", "1"}], "}"}]}], "]"}], ",", 
    RowBox[{"ControlPlacement", "\[Rule]", "Left"}], ",", 
+   RowBox[{"SynchronousUpdating", "\[Rule]", "False"}], ",", 
    "\[IndentingNewLine]", 
    RowBox[{"Initialization", "\[RuleDelayed]", 
     RowBox[{"(", "\[IndentingNewLine]", 
@@ -647,13 +648,20 @@ Cell[BoxData[
    3.6418632044251547`*^9}, {3.641863265347579*^9, 3.641863275957897*^9}, {
    3.641863420524604*^9, 3.6418634771333647`*^9}, {3.641932996312263*^9, 
    3.641933071141507*^9}, {3.641933109650807*^9, 3.641933125801633*^9}, {
-   3.6419337215271482`*^9, 3.6419337310793257`*^9}}],
+   3.6419337215271482`*^9, 3.6419337310793257`*^9}, {3.642974737334434*^9, 
+   3.6429747453106403`*^9}, 3.6429747950159283`*^9, {3.6429748385431137`*^9, 
+   3.642974843246847*^9}, {3.642974922332717*^9, 3.642974923419888*^9}, {
+   3.642974964018203*^9, 3.6429749740944157`*^9}, {3.6429750390084457`*^9, 
+   3.642975052528295*^9}, {3.642975180541334*^9, 3.6429751952107563`*^9}, 
+   3.642975248050254*^9, {3.642975282812436*^9, 3.642975293262224*^9}, {
+   3.642975347622837*^9, 3.642975348116016*^9}, {3.6429753811642036`*^9, 
+   3.6429753888316717`*^9}, {3.6429754196920013`*^9, 3.6429754240259647`*^9}}],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
    DynamicModuleBox[{$CellContext`A$$ = 1.5, $CellContext`Q$$ = 
-    2.4, $CellContext`t$$ = 0, $CellContext`theta0$$ = 
+    1, $CellContext`t$$ = 0, $CellContext`theta0$$ = 
     0, $CellContext`thetadot$$ = 0, $CellContext`w$$ = Rational[2, 3], 
     Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
@@ -674,23 +682,23 @@ Cell[BoxData[
       Hold[
        Button["Redraw", {$CellContext`redraw = 1}]], 
       Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
-    450., {162., 169.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = False, $CellContext`w$268142$$ = 
-    0, $CellContext`A$268143$$ = 0, $CellContext`Q$268144$$ = 
-    0, $CellContext`theta0$268145$$ = 0, $CellContext`thetadot$268146$$ = 
-    0, $CellContext`t$268147$$ = 0}, 
+    450., {186., 194.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`w$11056$$ = 
+    0, $CellContext`A$11057$$ = 0, $CellContext`Q$11058$$ = 
+    0, $CellContext`theta0$11059$$ = 0, $CellContext`thetadot$11060$$ = 
+    0, $CellContext`t$11061$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, 
       "Variables" :> {$CellContext`A$$ = 1.5, $CellContext`Q$$ = 
         1, $CellContext`t$$ = 0, $CellContext`theta0$$ = 
         0, $CellContext`thetadot$$ = 0, $CellContext`w$$ = Rational[2, 3]}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`w$$, $CellContext`w$268142$$, 0], 
-        Hold[$CellContext`A$$, $CellContext`A$268143$$, 0], 
-        Hold[$CellContext`Q$$, $CellContext`Q$268144$$, 0], 
-        Hold[$CellContext`theta0$$, $CellContext`theta0$268145$$, 0], 
-        Hold[$CellContext`thetadot$$, $CellContext`thetadot$268146$$, 0], 
-        Hold[$CellContext`t$$, $CellContext`t$268147$$, 0]}, 
+        Hold[$CellContext`w$$, $CellContext`w$11056$$, 0], 
+        Hold[$CellContext`A$$, $CellContext`A$11057$$, 0], 
+        Hold[$CellContext`Q$$, $CellContext`Q$11058$$, 0], 
+        Hold[$CellContext`theta0$$, $CellContext`theta0$11059$$, 0], 
+        Hold[$CellContext`thetadot$$, $CellContext`thetadot$11060$$, 0], 
+        Hold[$CellContext`t$$, $CellContext`t$11061$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -763,15 +771,17 @@ $CellContext`thetadot$$]][$CellContext`x]}, $CellContext`soln], \
           Rational[2, 3]}, 0, 2}, {{$CellContext`A$$, 1.5}, 0, 
          1.5}, {{$CellContext`Q$$, 1}, 0.1, 2.5, 
          0.01}, {{$CellContext`theta0$$, 0}, -3, 3}, {$CellContext`thetadot$$,
-          0, 3}, {$CellContext`t$$, 0, 400, 0.1}, 
+          0, 3}, {$CellContext`t$$, 0, $CellContext`tmax, 0.1, AnimationRate -> 
+         1, Appearance -> "Open"}, 
         Button[
         "Reset", {$CellContext`w$$ = 2/3, $CellContext`A$$ = 
           1.5, $CellContext`Q$$ = 2.4, $CellContext`theta0$$ = 
           0, $CellContext`thetadot$$ = 0, $CellContext`t$$ = 
           0, $CellContext`redraw = 1}], 
         Button["Redraw", {$CellContext`redraw = 1}]}, 
-      "Options" :> {ControlPlacement -> Left}, "DefaultOptions" :> {}],
-     ImageSizeCache->{828., {196., 203.}},
+      "Options" :> {ControlPlacement -> Left, SynchronousUpdating -> False}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{828., {220., 228.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -800,11 +810,14 @@ $CellContext`\[CapitalTheta]prime}]); Typeset`initDone$$ = True),
    Deployed->True,
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{3.6419331265240088`*^9, 3.64193374187272*^9}]
+ CellChangeTimes->{
+  3.642975124446972*^9, {3.642975182862788*^9, 3.642975212131339*^9}, {
+   3.6429752601094027`*^9, 3.642975300310356*^9}, 3.642975349716443*^9, {
+   3.642975401579678*^9, 3.64297544601038*^9}}]
 }, Open  ]]
 },
 WindowSize->{1440, 912},
-WindowMargins->{{9, Automatic}, {Automatic, 0}},
+WindowMargins->{{1, Automatic}, {Automatic, 0}},
 Magnification->1.25,
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
@@ -826,8 +839,8 @@ Cell[702, 24, 94, 1, 35, "Input"],
 Cell[799, 27, 1256, 21, 159, "Text"],
 Cell[2058, 50, 7042, 96, 35, "Input"],
 Cell[CellGroupData[{
-Cell[9125, 150, 24235, 499, 971, "Input"],
-Cell[33363, 651, 7659, 151, 419, "Output"]
+Cell[9125, 150, 24914, 507, 993, "Input"],
+Cell[34042, 659, 7897, 156, 468, "Output"]
 }, Open  ]]
 }
 ]
